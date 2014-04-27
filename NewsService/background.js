@@ -2,36 +2,30 @@ chrome.omnibox.onInputChanged.addListener(
   function(text, suggest) {
     console.log('inputChanged: ' + text);
     suggest([
-      {content: text + "id=", description: "show news content by id"},
-      {content: text + "symbol=", description: "search news by symbol"}
+      {content: "symbol=", description: "symbol=&template=&"}
     ]);
   });
 
 chrome.omnibox.onInputEntered.addListener(function(text) {
-  var params = [];
-  var paramsInArray = text.split(" ");
+  text = text.trim();
+  var newsserviceUrl = "http://newsservice.morningstar.com/news/services/newsRS";
 
-  for(i=0; i< paramsInArray.length; i++){
-    var keyValue = paramsInArray[i].split("=");
-    if(keyValue.length >= 2){
-      params[keyValue[0]] = keyValue[1];
+  if(text.indexOf("=") == -1){
+    newsserviceUrl += "/view?productcode=RMOB&resourceId="+text;
+  }else{
+    var type = "SC";
+    var params = text.split("&");
+    for(var i=0; i<params.length; i++){
+      if(params[i].indexOf("symbol=") != -1 && params[i].substring(7).indexOf(":") != -1){
+        type = "CS";
+      }
     }
+
+    newsserviceUrl += "/list?productCode=RMOB&idType="+type+"&" + text;
   }
+	
+  openUrlInCurrentTab(newsserviceUrl);
 
-  var baseNewsServiceUrl = "http://newsservice.morningstar.com/news/services/newsRS";
-	if(params["id"] !== undefined){
-		var newsId = params["id"];
-		var newsContentUrl = baseNewsServiceUrl +"/view?productcode=RMOB&resourceId="+newsId;
-		openUrlInCurrentTab(newsContentUrl);
-	}else if(params["symbol"] !== undefined){
-		var symbol = params["symbol"];
-    var type = symbol.indexOf(":") == -1 ? "SC" : "CS";
-		var newsUrl = baseNewsServiceUrl + "/list?productCode=RMOB&idType="+type+"&symbol="+symbol;
-    if(params["template"] !== undefined){
-      newsUrl += "&template=" + params["template"];
-    }
-		openUrlInCurrentTab(newsUrl);
-	}
 });
 
 function openUrlInCurrentTab(newUrl){
