@@ -9,6 +9,9 @@
 		"tabs",
 		"http://*/*"
 	],
+	"icons": {
+    	"16": "newsservice.png"
+    },
 	"background": {
 		"persistent": false,
 		"scripts": ["background.js"]
