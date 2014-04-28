@@ -1,0 +1,16 @@
+{
+	"manifest_version": 2,
+	"name": "SecurityService",
+	"version": "0.9",
+	"omnibox": {
+		"keyword": "ss>"
+	},
+	"permissions": [
+		"tabs",
+		"http://*/*"
+	],
+	"background": {
+		"persistent": false,
+		"scripts": ["background.js"]
+	}
+}

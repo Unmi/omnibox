@@ -1,8 +1,10 @@
 chrome.omnibox.onInputChanged.addListener(
   function(text, suggest) {
-    console.log('inputChanged: ' + text);
     suggest([
-      {content: "symbol=", description: "symbol=&template=&"}
+      ////must escape & to &amp;, or else can't show any suggestion
+      {content: "symbol", description: "symbol=region:ticker, performanceId&amp;template="}, 
+      {content: "template1", description: "Generic, DJNA, MorningstarArticle, StockAnalystNotes, CompanyReport"},
+      {content: "template2", description: "FundAnalysisNew, ETFAnalysis, CEFAnalysis, Videos, MarketUpdate"}
     ]);
   });
 
