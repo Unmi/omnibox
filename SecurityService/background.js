@@ -4,8 +4,9 @@
 chrome.omnibox.onInputChanged.addListener(
   function(text, suggest) {
     suggest([
-      {content: "sample1", description: "securityId/view, viewall, Info, Quote, Details, News, DailyPriceVolume, IntradayPriceVolume, filter="},
-      {content: "sample2", description: "securityId/News/[Generic, Research, Commentary, Video], analyst_reports, analyst_reports/latest"}
+      {content: "sample1", description: "securityId/view, Info, Quote, Details, News, DailyPriceVolume, IntradayPriceVolume, filter="},
+      {content: "sample2", description: "securityId/News/[Generic, Research, Commentary, Video], analyst_reports, analyst_reports/latest"}，
+      {content: "sample3", description: "securityIds/top_news, viewall, securityId/search/{key}"}
     ]);
 });
 
